@@ -5,18 +5,43 @@ namespace Revisao
     class Program
     {
         static void Main(string[] args)
-        {
-            string opcaoUsuario = NewMethod();
+        {   Aluno[] alunos = new Aluno[5];
+            int indiceAluno = 0;
+            string opcaoUsuario = ObterOpcaoUsuario();
 
             while (opcaoUsuario.ToUpper() != "X")
             {
                 switch (opcaoUsuario)
                 {
                     case "1":
-                        //Todo: Adicionar Alunos
+                        Console.WriteLine("Informe o Nome Do Aluno:");
+                        var aluno = new Aluno();
+                        aluno.Nome = Console.ReadLine();
+
+                        Console.WriteLine("Informe a Nota do Aluno");
+
+                        if (decimal.TryParse(Console.ReadLine(), out decimal Nota))
+                        {
+                            aluno.Nota = Nota;
+                        }
+                        else
+                        {
+                            throw new ArgumentException ("Valor digitado Errado seu Burro");
+                        }
+
+                        alunos[indiceAluno]=aluno;
+                        indiceAluno++;
+
+                        
                         break;
                     case "2":
-                        //Todo: Listar Alunos 
+                        foreach(var a in alunos)
+                        {
+                            if (!string.IsNullOrEmpty(a.Nome))
+                            {
+                                Console.WriteLine($"Aluno: {a.Nome} - Nota: {a.Nota}");
+                            }
+                        }
                         break;
                     case "3":
                         //Todo: Calcular Média Geral
@@ -38,6 +63,8 @@ namespace Revisao
 
         private static string ObterOpcaoUsuario()
         {
+            
+            Console.WriteLine();
             Console.WriteLine("Informe a Opção Desejada");
             Console.WriteLine("1- INserir Novo Aluno");
             Console.WriteLine("2- Listar Alunos");
